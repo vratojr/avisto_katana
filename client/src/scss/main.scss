@@ -1,0 +1,23 @@
+.d-flex {
+  display:"flex"
+}
+
+.d-flex-direction-col {
+  flex-direction: column 
+}
+
+.card-holder.normal {
+  width: 5rem;
+}
+
+.card-holder.big {
+  width: 9rem;
+}
+
+.icon-holder.small {
+  width: 1rem;
+}
+
+.fullwidth {
+  width: 100%;
+}
