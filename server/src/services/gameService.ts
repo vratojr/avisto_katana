@@ -1,8 +1,10 @@
-import { initDecks, roleDeck, characterDeck } from "./deckService";
+import { GameCard, GameDeck } from "../entities/deck";
 import { game } from "../entities/game";
-import { getRandomInt } from "./utils";
 import { Player } from "../entities/player";
 import { RoleShogun } from "./constants";
+import * as deckService from "./deckService";
+import { getRandomInt } from "./utils";
+
 
 const getShogun = function () {
   return game.players.find(p => p.role.cardName == RoleShogun);
@@ -63,13 +65,15 @@ const initHonorPoints = function () {
 
 export const newGame = function () {
 
+  game.reset();
+
   const ps = game.players;
 
-  initDecks(ps.length);
+  deckService.initDecks(ps.length);
 
   ps.forEach(p => {
-    p.role = roleDeck.draw();
-    p.character = characterDeck.draw();
+    p.role = deckService.roleDeck.draw();
+    p.character = deckService.characterDeck.draw();
     p.reset();
   });
 
@@ -85,3 +89,27 @@ export const newGame = function () {
 export const endTurn = function (): Player {
   return game.nextPlayer();
 };
+
+export const drawGameCard = function (): GameCard {
+  const card = game.gameDeck.draw();
+  if (game.gameDeck.isEmpty()) {
+    // If card is null we are at the end of the deck.
+    // Remove 1 honorpoint from each player and check if someone is at zero
+
+    for (let i = 0; i < game.players.length; i++) {
+      const p = game.players[i];
+      p.honorPoints--;
+      if (p.honorPoints == 0) {
+        game.end();
+        return null;
+      }
+    }
+
+    //If not, shuffle the discarded into the game deck and restart
+    game.gameDeck = game.discardedGameDeck;
+    deckService.emptyDiscardedDeck();
+    game.gameDeck.shuffle();
+  }
+  return card;
+};
+

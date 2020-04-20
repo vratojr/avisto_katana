@@ -65,10 +65,17 @@ export default {
       }
     },
     lifePoints() {
+      if (!this.player.lifePoints) {
+        return []
+      }
       return Array.from(Array(this.player.lifePoints));
     },
     honorPoints() {
+      if (!this.player.honorPoints) {
+        return []
+      }
       return Array.from(Array(this.player.honorPoints));
+
     },
     characterImgUrl() {
       return require(`../assets/characters/${this.player._character.cardName}.png`)

@@ -49,8 +49,7 @@ app.get("/api/players/:id", (req, res) => {
 });
 
 app.put("/api/players/:id/draw", (req, res) => {
-    const player = playerService.drawCard(req.params.id);
-    res.json(player);
+    res.json(playerService.drawCard(req.params.id));
 });
 
 app.put("/api/players/:id/drawDiscarded", (req, res) => {

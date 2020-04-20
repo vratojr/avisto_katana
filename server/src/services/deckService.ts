@@ -92,5 +92,11 @@ export const initDecks = function (players: number) {
 
   initCharacterCards();
 
+  emptyDiscardedDeck();
+
   [roleDeck, game.gameDeck, characterDeck].forEach(d => d.reset());
 };
+
+export const emptyDiscardedDeck = function () {
+  game.discardedGameDeck = new GameDeck(new Map<GameCard, number>());
+}

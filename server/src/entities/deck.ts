@@ -108,7 +108,10 @@ export class Deck {
   }
 
   shuffle() {
-    const shuffleCnt = getRandomInt(2, this.cards.length - 1);
+    if (this.cards.length == 0) {
+      return;
+    }
+    const shuffleCnt = getRandomInt(this.cards.length / 2, this.cards.length - 1);
     for (let i = 0; i < shuffleCnt; i++) {
       const rndNo = getRandomInt(0, this.cards.length - 1);
       const card = this.cards[i];
@@ -128,10 +131,13 @@ export class Deck {
     if (this.cards.length == 0) {
       return null;
     }
-    return this.cards.splice(this.cards.length-1, 1)[0];
+    return this.cards.splice(this.cards.length - 1, 1)[0];
   }
   add(card: Card) {
     this.cards.push(card);
+  }
+  isEmpty(): boolean {
+    return this.cards.length == 0;
   }
 }
 
@@ -140,6 +146,9 @@ export class GameDeck extends Deck {
   cardTemplates: Map<GameCard, number>
 
   draw(): GameCard {
+    if (this.cards.length == 0) {
+      return null;
+    }
     return this.cards.splice(0, 1)[0]; //TODO call super somehow and cast
   }
 
@@ -147,7 +156,7 @@ export class GameDeck extends Deck {
     if (this.cards.length == 0) {
       return null;
     }
-    return this.cards.splice(this.cards.length-1, 1)[0]; //TODO call super somehow and cast
+    return this.cards.splice(this.cards.length - 1, 1)[0]; //TODO call super somehow and cast
   }
 }
 

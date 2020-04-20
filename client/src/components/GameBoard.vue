@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex d-flex-direction-col mr-100">
     <div class="card-holder normal">
-      <v-img class="fullwidth" :src="require(`../assets/game/game_back.png`)" />
+      <v-img v-if="game.gameDeck.cards.length>0" class="fullwidth" :src="require(`../assets/game/game_back.png`)" @click="drawGameCard" />
     </div>
     <div v-if="lastDiscardedCard" class="card-holder normal">
       <v-img class="fullwidth" :src="lastDiscardedCardImage" @click="drawDiscarded" />
@@ -33,6 +33,9 @@ export default {
   methods: {
     drawDiscarded() {
       axios.put(`api/players/${this.$store.getters.username}/drawDiscarded`)
+    },
+    drawGameCard() {
+      axios.put(`api/players/${this.$store.getters.username}/draw`)
     },
   }
 }

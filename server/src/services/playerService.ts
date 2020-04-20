@@ -2,6 +2,7 @@
 import { Player } from "../entities/player";
 import { Card, CardType } from "../entities/deck";
 import { game } from "../entities/game";
+import * as gameService from "./gameService";
 
 const players = game.players;
 
@@ -26,8 +27,8 @@ export const getPlayer = function (id: string): Player {
 
 export const drawCard = function (id: string): Player {
   const player = players.find(p => p.id == id);
-  const card = game.gameDeck.draw();
-  player.hand.push(card);
+  const card = gameService.drawGameCard();
+  card && player.hand.push(card);
   return player;
 };
 

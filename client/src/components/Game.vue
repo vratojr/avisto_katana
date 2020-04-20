@@ -25,6 +25,9 @@ export default {
   data: () => ({
     game: {
       players: [],
+      gameDeck: {
+        cards: []
+      },
       discardedGameDeck: {
         cards: []
       }

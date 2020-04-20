@@ -7,6 +7,8 @@ export class Game {
 
   started: boolean
 
+  ended: boolean
+
   gameDeck: GameDeck;
 
   discardedGameDeck = new GameDeck(new Map<GameCard, number>());
@@ -33,7 +35,18 @@ export class Game {
 
   start() {
     this.started = true;
+    this.ended = false;
     this.nextPlayer();
+  }
+
+  end() {
+    this.started = true;
+    this.ended = true;
+  }
+
+  reset() {
+    this.started = false;
+    this.ended = false;
   }
 }
 
