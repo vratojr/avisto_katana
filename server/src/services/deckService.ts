@@ -1,6 +1,10 @@
 import { Card, GameCard, WeaponCard, CharacterCard, Deck, CharacterDeck, GameDeck, CardType } from "../entities/deck";
 import { game } from "../entities/game";
 
+/* Performs only the initialization of the decks. 
+The rest of the logic should be into the game service.
+ */
+
 export let roleDeck: Deck;
 export let characterDeck: CharacterDeck;
 
@@ -89,38 +93,4 @@ export const initDecks = function (players: number) {
   initCharacterCards();
 
   [roleDeck, game.gameDeck, characterDeck].forEach(d => d.reset());
-};
-
-export const shuffle = function (deckId: string) {
-  switch (deckId) {
-    case "role":
-      roleDeck.shuffle();
-      break;
-  }
-  return true;
-};
-
-export const draw = function (deckId: string): Card {
-  switch (deckId) {
-    case "role":
-      return roleDeck.draw();
-  }
-};
-
-export const reset = function (deckId: string) {
-  switch (deckId) {
-    case "role":
-      return roleDeck.reset();
-  }
-};
-
-export const content = function (deckId: string): Array<Card> {
-  switch (deckId) {
-    case "role":
-      return roleDeck.cards;
-  }
-};
-
-export const discardGameCard = function (card: GameCard) {
-  game.discardedGameDeck.add(card);
 };

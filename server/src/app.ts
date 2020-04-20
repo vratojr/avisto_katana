@@ -38,28 +38,6 @@ app.use(
     express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
 );
 
-app.get("/api/decks/:id/shuffle", (req, res) => {
-    deckService.shuffle(req.params.id);
-    res.json();
-});
-
-app.get("/api/decks/:id/draw", (req, res) => {
-    const card = deckService.draw(req.params.id);
-    res.json({
-        card: card ? card.cardName : ""
-    });
-});
-
-app.get("/api/decks/:id/reset", (req, res) => {
-    deckService.reset(req.params.id);
-    res.json();
-});
-
-app.get("/api/decks/:id/content", (req, res) => {
-    const cards = deckService.content(req.params.id);
-    res.json({ cards: cards });
-});
-
 app.post("/api/players/add", (req, res) => {
     const player = playerService.add(req.body.name);
     res.json(player);

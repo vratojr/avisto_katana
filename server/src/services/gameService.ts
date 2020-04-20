@@ -2,7 +2,7 @@ import { initDecks, roleDeck, characterDeck } from "./deckService";
 import { game } from "../entities/game";
 import { getRandomInt } from "./utils";
 import { Player } from "../entities/player";
-import {RoleShogun } from "./constants";
+import { RoleShogun } from "./constants";
 
 const getShogun = function () {
   return game.players.find(p => p.role.cardName == RoleShogun);

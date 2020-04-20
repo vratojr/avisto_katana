@@ -2,7 +2,6 @@
 import { Player } from "../entities/player";
 import { Card, CardType } from "../entities/deck";
 import { game } from "../entities/game";
-import * as deckService from "./deckService";
 
 const players = game.players;
 
@@ -43,7 +42,7 @@ export const playCard = function (id: string, pos: number): Card {
   const player = players.find(p => p.id == id);
   const card = player.playCard(pos);
   if (card && card.cardType != CardType.Permanent) {
-    deckService.discardGameCard(card);
+    game.discardedGameDeck.add(card);
   }
   return card;
 };
@@ -51,7 +50,7 @@ export const playCard = function (id: string, pos: number): Card {
 export const discardCard = function (id: string, pos: number): Card {
   const player = players.find(p => p.id == id);
   const card = player.removeCardFromGame(pos);
-  deckService.discardGameCard(card);
+  game.discardedGameDeck.add(card);
 
   return card;
 };
