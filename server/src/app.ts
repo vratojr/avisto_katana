@@ -75,8 +75,16 @@ app.put("/api/players/:id/draw", (req, res) => {
     res.json(player);
 });
 
-app.put("/api/players/:id/playCard/:pos", (req, res) => {
+app.put("/api/players/:id/drawDiscarded", (req, res) => {
+    res.json(playerService.drawDiscarded(req.params.id));
+});
+
+app.put("/api/players/:id/hand/:pos/play", (req, res) => {
     res.json(playerService.playCard(req.params.id, (Number)(req.params.pos)));
+});
+
+app.put("/api/players/:id/game/:pos/discard", (req, res) => {
+    res.json(playerService.discardCard(req.params.id, (Number)(req.params.pos)));
 });
 
 app.post("/api/game/endTurn", (req, res) => {

@@ -28,7 +28,7 @@
     <div class="d-flex">
       Game:
       <div v-for="(card,i) in player.game" :key="i" class="card-holder big">
-        <v-img class="fullwidth" :src="getCardUrl(card)" />
+        <v-img class="fullwidth" :src="getCardUrl(card)" @click="discardCardFromGame(i)" />
       </div>
     </div>
     <v-btn @click="endTurn()">End Turn</v-btn>
@@ -86,9 +86,13 @@ export default {
     },
     playCard(index) {
       if (this.isCurrentPlayer) {
-        axios.put(`api/players/${this.player.id}/playCard/${index}`)
+        axios.put(`api/players/${this.player.id}/hand/${index}/play`)
       }
     },
+    discardCardFromGame(index) {
+      axios.put(`api/players/${this.player.id}/game/${index}/discard`)
+    },
+
     endTurn() {
       //if (this.isCurrentPlayer) { TODO uncomment
       axios.post('/api/game/endTurn')

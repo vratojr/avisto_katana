@@ -32,11 +32,26 @@ export const drawCard = function (id: string): Player {
   return player;
 };
 
+export const drawDiscarded = function (id: string): Player {
+  const player = players.find(p => p.id == id);
+  const card = game.discardedGameDeck.drawLast();
+  player.hand.push(card);
+  return player;
+};
+
 export const playCard = function (id: string, pos: number): Card {
   const player = players.find(p => p.id == id);
   const card = player.playCard(pos);
-  if (card.cardType != CardType.Permanent) {
+  if (card && card.cardType != CardType.Permanent) {
     deckService.discardGameCard(card);
   }
+  return card;
+};
+
+export const discardCard = function (id: string, pos: number): Card {
+  const player = players.find(p => p.id == id);
+  const card = player.removeCardFromGame(pos);
+  deckService.discardGameCard(card);
+
   return card;
 };

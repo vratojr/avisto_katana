@@ -118,9 +118,18 @@ export class Deck {
   }
 
   draw(): Card {
+    if (this.cards.length == 0) {
+      return null;
+    }
     return this.cards.splice(0, 1)[0];
   }
 
+  drawLast(): Card {
+    if (this.cards.length == 0) {
+      return null;
+    }
+    return this.cards.splice(this.cards.length-1, 1)[0];
+  }
   add(card: Card) {
     this.cards.push(card);
   }
@@ -132,6 +141,13 @@ export class GameDeck extends Deck {
 
   draw(): GameCard {
     return this.cards.splice(0, 1)[0]; //TODO call super somehow and cast
+  }
+
+  drawLast(): GameCard {
+    if (this.cards.length == 0) {
+      return null;
+    }
+    return this.cards.splice(this.cards.length-1, 1)[0]; //TODO call super somehow and cast
   }
 }
 

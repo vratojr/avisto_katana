@@ -33,9 +33,9 @@ export class Player {
     this.game = new Array<GameCard>();
   }
 
-  playCard(pos: number) {
+  playCard(pos: number): GameCard {
     if (pos > this.hand.length - 1) {
-      return;
+      return null;
     }
 
     const card = this.hand.splice(pos, 1)[0];
@@ -43,6 +43,14 @@ export class Player {
       this.game.push(card);
     }
     return card;
+  }
+
+  removeCardFromGame(pos: number): GameCard {
+    if (pos > this.game.length - 1) {
+      return null;
+    }
+
+    return this.game.splice(pos, 1)[0];
   }
 
 

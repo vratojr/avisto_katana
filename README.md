@@ -15,7 +15,7 @@ npm run serve
 To add 5 new players to the game, call:
 
 ```
-http://localhost:3000/api/test/admin/add5
+http://localhost:3000/api/test/players/add5
 ```
 
 Then login with a new player and start the game! :)
