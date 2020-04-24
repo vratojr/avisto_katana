@@ -53,13 +53,16 @@ export default {
       return !!this.mainPlayer;
     },
     mainPlayer() {
-      return this.game.players.find(player => {
-        return player.id == this.$store.getters.username;
-      });
+      return this.game.players.find(p => p.id == this.$store.getters.username);
     },
     players() {
+      if (this.game.players.length == 0) {
+        return []
+      }
+
       let vm = this
-      return this.game.players.map(p => {
+      //Enrich with some data
+      let res = this.game.players.map(p => {
         return {
           ...p,
           isCurrentPlayer: vm.game.currentPlayer.id == p.id,
@@ -67,6 +70,21 @@ export default {
           isOwnerPlayer: p.id == this.$store.getters.username
         }
       })
+
+      // rotate the player list to that the owner player is at the center
+      const centerPos = Math.floor(res.length / 2);
+      let ownerPlayerPos = res.findIndex(p => p.id == this.$store.getters.username)
+      while (centerPos != ownerPlayerPos && ownerPlayerPos >= 0) {
+        if (ownerPlayerPos > centerPos) {
+          res.push(res.shift());
+        }
+        else {
+          res.unshift(res.pop())
+        }
+        ownerPlayerPos = res.findIndex(p => p.id == this.$store.getters.username)
+      }
+
+      return res;
     }
   },
   methods: {
