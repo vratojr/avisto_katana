@@ -1,5 +1,5 @@
 <template>
-  <div v-if="player">
+  <div v-if="player" :class="{'current_player':isCurrentPlayer}">
     {{player.id}}
     <div class="card-holder normal">
       <v-img class="normal" :src="roleImgUrl" />
@@ -27,7 +27,7 @@
     </div>
     <v-btn @click="endTurn()">End Turn</v-btn>
   </div>
-  <!-- <div class="player" :class="{'current_player':isCurrentPlayer}">
+  <!-- <div class="player" >
     <div class="d-flex">
       {{player.id}}
       <div class="card-holder normal">
@@ -64,65 +64,15 @@
 </template>
 
 <script>
-import axios from "axios";
+import PlayerMixin from "./PlayerMixin"
 
 export default {
-  props: {
-    player: {
-      type: Object
-    }
-  },
-  computed: {
-    roleImgUrl() {
-      return require(`../assets/roles/${this.player.role.cardName}.png`);
-    },
-    lifePoints() {
-      if (!this.player.lifePoints) {
-        return [];
-      }
-      return Array.from(Array(this.player.lifePoints));
-    },
-    honorPoints() {
-      if (!this.player.honorPoints) {
-        return [];
-      }
-      return Array.from(Array(this.player.honorPoints));
-    },
-    characterImgUrl() {
-      return require(`../assets/characters/${this.player._character.cardName}.png`);
-    }
-
-    //     isCurrentPlayer() {
-    //       return this.player.id == this.game.currentPlayer.id;
-    //     }
-  },
-  methods: {
-    getCardUrl(card) {
-      return require(`../assets/game/${card.cardType}/${card.cardName}.png`);
-    },
-    playCard(index) {
-      if (this.isCurrentPlayer) {
-        axios.put(`api/players/${this.player.id}/hand/${index}/play`);
-      }
-    },
-    discardCardFromGame(index) {
-      axios.put(`api/players/${this.player.id}/game/${index}/discard`);
-    },
-    endTurn() {
-      //if (this.isCurrentPlayer) { TODO uncomment
-      axios.post("/api/game/endTurn");
-      //}
-    }
-  }
+  mixins: [PlayerMixin]
 };
 </script>
 
 <style>
-/* .current_player {
-  border: 0.1rem solid red !important;
+.owner_player {
+  background-color: #26c6da;
 }
-.player {
-  border: 0.1rem solid black;
-  padding: 1rem;
-} */
 </style>

@@ -6,9 +6,9 @@
       </v-col>
       <v-col cols="9">
         <div class="d-flex d-flex-direction-col d-flex-1 players_list">
-          <div v-for="p in game.players" :key="p.id" class>
+          <div v-for="p in players" :key="p.id" class>
             <!-- <MainPlayer :player="p" :game="game" /> -->
-            <Player :player="p" :game="game" />
+            <Player :player="p" />
           </div>
         </div>
       </v-col>
@@ -26,7 +26,6 @@ import axios from "axios";
 import Player from "../components/Player";
 import GameBoard from "../components/GameBoard";
 import MainPlayer from "../components/MainPlayer";
-//import * as entityService from '../services/entityService'
 
 export default {
   components: {
@@ -42,7 +41,8 @@ export default {
       },
       discardedGameDeck: {
         cards: []
-      }
+      },
+      currentPlayer: {}
     }
   }),
   mounted() {
@@ -50,13 +50,23 @@ export default {
   },
   computed: {
     isOwner() {
+      return !!this.mainPlayer;
+    },
+    mainPlayer() {
       return this.game.players.find(player => {
-        // console.log(this.$store.getters.username);
         return player.id == this.$store.getters.username;
       });
     },
-    mainPlayer() {
-      return this.isOwner ? this.isOwner : null;//entityService.createDefaultPlayer()
+    players() {
+      let vm = this
+      return this.game.players.map(p => {
+        return {
+          ...p,
+          isCurrentPlayer: vm.game.currentPlayer.id == p.id,
+          // If the player corresponds to the current user
+          isOwnerPlayer: p.id == this.$store.getters.username
+        }
+      })
     }
   },
   methods: {
