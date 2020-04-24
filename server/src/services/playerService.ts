@@ -1,6 +1,6 @@
 
 import { Player } from "../entities/player";
-import { Card, CardType } from "../entities/deck";
+import { Card, CardType } from "../entities/card";
 import { game } from "../entities/game";
 import * as gameService from "./gameService";
 

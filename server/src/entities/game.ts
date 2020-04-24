@@ -1,5 +1,6 @@
 import { Player } from "../entities/player";
-import { GameDeck, GameCard } from "./deck";
+import { GameDeck } from "./deck";
+import { GameCard } from "./card";
 export class Game {
   currentPlayer: Player
 

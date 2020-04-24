@@ -1,4 +1,6 @@
-import { Card, GameCard, WeaponCard, CharacterCard, Deck, CharacterDeck, GameDeck, CardType } from "../entities/deck";
+import { Deck, CharacterDeck, GameDeck } from "../entities/deck";
+import { Card, GameCard, WeaponCard, CharacterCard, CardType } from  "../entities/card";
+
 import { game } from "../entities/game";
 
 /* Performs only the initialization of the decks. 
@@ -85,6 +87,11 @@ const initCharacterCards = function () {
   characterDeck = new CharacterDeck(CharCards);
 };
 
+
+export const emptyDiscardedDeck = function () {
+  game.discardedGameDeck = new GameDeck(new Map<GameCard, number>());
+};
+
 export const initDecks = function (players: number) {
   initRoles(players);
 
@@ -96,7 +103,3 @@ export const initDecks = function (players: number) {
 
   [roleDeck, game.gameDeck, characterDeck].forEach(d => d.reset());
 };
-
-export const emptyDiscardedDeck = function () {
-  game.discardedGameDeck = new GameDeck(new Map<GameCard, number>());
-}

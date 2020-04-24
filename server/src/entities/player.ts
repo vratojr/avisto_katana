@@ -1,4 +1,4 @@
-import { Card, GameCard, CharacterCard, CardType } from "./deck";
+import { Card, GameCard, CharacterCard, CardType } from "./card";
 import { NumericDictionary } from "lodash";
 import { game } from "./game";
 

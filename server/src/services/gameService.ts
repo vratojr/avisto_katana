@@ -1,4 +1,4 @@
-import { GameCard, GameDeck } from "../entities/deck";
+import { GameCard } from "../entities/card";
 import { game } from "../entities/game";
 import { Player } from "../entities/player";
 import { RoleShogun } from "./constants";
