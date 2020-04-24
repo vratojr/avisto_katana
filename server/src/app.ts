@@ -7,9 +7,8 @@ import flash from "express-flash";
 import path from "path";
 import { SESSION_SECRET } from "./util/secrets";
 
-import * as deckService from "./services/deckService";
-import * as playerService from "./services/playerService";
 import * as gameService from "./services/gameService";
+import * as initGameService from "./services/initGameService";
 import { game } from "./entities/game";
 
 // Create Express server
@@ -39,29 +38,29 @@ app.use(
 );
 
 app.post("/api/players/add", (req, res) => {
-    const player = playerService.add(req.body.name);
+    const player = initGameService.addPlayer(req.body.name);
     res.json(player);
 });
 
 app.get("/api/players/:id", (req, res) => {
-    const player = playerService.getPlayer(req.params.id);
+    const player = gameService.getPlayer(req.params.id);
     res.json(player);
 });
 
 app.put("/api/players/:id/draw", (req, res) => {
-    res.json(playerService.drawCard(req.params.id));
+    res.json(gameService.drawCard(req.params.id));
 });
 
 app.put("/api/players/:id/drawDiscarded", (req, res) => {
-    res.json(playerService.drawDiscarded(req.params.id));
+    res.json(gameService.drawDiscarded(req.params.id));
 });
 
 app.put("/api/players/:id/hand/:pos/play", (req, res) => {
-    res.json(playerService.playCard(req.params.id, (Number)(req.params.pos)));
+    res.json(gameService.playCard(req.params.id, (Number)(req.params.pos)));
 });
 
 app.put("/api/players/:id/game/:pos/discard", (req, res) => {
-    res.json(playerService.discardCard(req.params.id, (Number)(req.params.pos)));
+    res.json(gameService.discardCard(req.params.id, (Number)(req.params.pos)));
 });
 
 app.post("/api/game/endTurn", (req, res) => {
@@ -73,13 +72,13 @@ app.get("/api/game", (req, res) => {
 });
 
 app.post("/api/admin/newGame", (req, res) => {
-    gameService.newGame();
+    initGameService.initGame();
     res.json(game);
 });
 
 app.post("/api/test/players/add5", (req, res) => {
     ["Simone", "Hannah", "Chiara", "Alice", "Alberto"].forEach(n => {
-        playerService.add(n);
+        initGameService.addPlayer(n);
     });
     res.json(game.players);
 });

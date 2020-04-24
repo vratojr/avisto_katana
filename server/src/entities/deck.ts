@@ -9,6 +9,10 @@ export class Deck {
     this.reset();
   };
 
+  empty() {
+    this.cards = new Array<Card>();
+  }
+
   reset() {
     this.cards = new Array<Card>();
     this.cardTemplates.forEach((n, t) => {
@@ -56,6 +60,10 @@ export class Deck {
 export class GameDeck extends Deck {
   cards: Array<GameCard>
   cardTemplates: Map<GameCard, number>
+
+  empty() {
+    this.cards = new Array<GameCard>();
+  }
 
   draw(): GameCard {
     if (this.cards.length == 0) {

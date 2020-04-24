@@ -1,6 +1,4 @@
 import { Card, GameCard, CharacterCard, CardType } from "./card";
-import { NumericDictionary } from "lodash";
-import { game } from "./game";
 
 export class Player {
   id: string;

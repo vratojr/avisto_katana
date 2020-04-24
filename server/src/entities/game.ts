@@ -1,5 +1,5 @@
 import { Player } from "../entities/player";
-import { GameDeck } from "./deck";
+import { GameDeck, Deck, CharacterDeck } from "./deck";
 import { GameCard } from "./card";
 export class Game {
   currentPlayer: Player
@@ -14,8 +14,15 @@ export class Game {
 
   discardedGameDeck = new GameDeck(new Map<GameCard, number>());
 
+  roleDeck: Deck;
+  characterDeck: CharacterDeck;
+
   orderedPlayers() {
     return this.players.sort((a, b) => a.position - b.position);
+  }
+
+  decks() {
+    return [this.roleDeck, this.gameDeck, this.characterDeck];
   }
 
   nextPlayer(): Player {

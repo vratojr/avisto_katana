@@ -7,10 +7,7 @@ import { game } from "../entities/game";
 The rest of the logic should be into the game service.
  */
 
-export let roleDeck: Deck;
-export let characterDeck: CharacterDeck;
-
-const initRoles = function (players: number) {
+const initRoleDeck = function (players: number) {
   const RoleCards = new Map<Card, number>();
   RoleCards.set(new Card("shogun"), 1);
 
@@ -35,10 +32,10 @@ const initRoles = function (players: number) {
       RoleCards.set(new Card("ninja"), 3);
       break;
   }
-  roleDeck = new Deck(RoleCards);
+  game.roleDeck = new Deck(RoleCards);
 };
 
-const initGameCards = function () {
+const initGameDeck = function () {
   const GameCards = new Map<Card, number>();
   GameCards.set(new GameCard("attaque_rapide", CardType.Permanent), 3);
   GameCards.set(new GameCard("cerimonie_du_the", CardType.Action), 4);
@@ -69,7 +66,7 @@ const initGameCards = function () {
   game.gameDeck = new GameDeck(GameCards);
 };
 
-const initCharacterCards = function () {
+const initCharacterDeck = function () {
   const CharCards = new Map<CharacterCard, number>();
   CharCards.set(new CharacterCard("nobunaga", 5), 1);
   CharCards.set(new CharacterCard("musashi", 5), 1);
@@ -84,22 +81,18 @@ const initCharacterCards = function () {
   CharCards.set(new CharacterCard("kojiro", 5), 1);
   CharCards.set(new CharacterCard("ushiwaka", 4), 1);
 
-  characterDeck = new CharacterDeck(CharCards);
+  game.characterDeck = new CharacterDeck(CharCards);
 };
 
-
-export const emptyDiscardedDeck = function () {
-  game.discardedGameDeck = new GameDeck(new Map<GameCard, number>());
-};
 
 export const initDecks = function (players: number) {
-  initRoles(players);
+  initRoleDeck(players);
 
-  initGameCards();
+  initGameDeck();
 
-  initCharacterCards();
+  initCharacterDeck();
 
-  emptyDiscardedDeck();
+  game.discardedGameDeck.empty();
 
-  [roleDeck, game.gameDeck, characterDeck].forEach(d => d.reset());
+  game.decks().forEach(d => d.reset());
 };
