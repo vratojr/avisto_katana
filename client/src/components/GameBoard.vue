@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   props: {
@@ -21,24 +21,26 @@ export default {
       if (this.game.discardedGameDeck.cards.length == 0) {
         return null;
       }
-      return this.game.discardedGameDeck.cards[this.game.discardedGameDeck.cards.length - 1]
+      return this.game.discardedGameDeck.cards[
+        this.game.discardedGameDeck.cards.length - 1
+      ];
     },
     lastDiscardedCardImage() {
       if (!this.lastDiscardedCard) {
-        return ""
+        return "";
       }
-      return require(`../assets/game/${this.lastDiscardedCard.cardType}/${this.lastDiscardedCard.cardName}.png`)
-    },
+      return require(`../assets/game/${this.lastDiscardedCard.cardType}/${this.lastDiscardedCard.cardName}.png`);
+    }
   },
   methods: {
     drawDiscarded() {
-      axios.put(`api/players/${this.$store.getters.username}/drawDiscarded`)
+      axios.put(`api/players/${this.$store.getters.username}/drawDiscarded`);
     },
     drawGameCard() {
-      axios.put(`api/players/${this.$store.getters.username}/draw`)
-    },
+      axios.put(`api/players/${this.$store.getters.username}/draw`);
+    }
   }
-}
+};
 </script>
 
 <style>

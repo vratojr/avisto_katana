@@ -1,5 +1,33 @@
 <template>
-  <div class="player" :class="{'current_player':isCurrentPlayer}">
+  <div v-if="player">
+    {{player.id}}
+    <div class="card-holder normal">
+      <v-img class="normal" :src="roleImgUrl" />
+    </div>
+    <div class="card-holder normal">
+      <v-img class="normal" :src="characterImgUrl" />
+    </div>
+    <div v-for="i in lifePoints" :key="i" class="icon-holder small">
+      <v-img class="small" :src="require('../assets/life_point.png')" />
+    </div>
+    <div v-for="i in honorPoints" :key="i" class="icon-holder small">
+      <v-img class="small" :src="require('../assets/honor_point.png')" />
+    </div>
+    <div class="d-flex">
+      Hand:
+      <div v-for="(card,i) in player.hand" :key="i" class="card-holder big">
+        <v-img class="fullwidth" :src="getCardUrl(card)" @click="playCard(i)" />
+      </div>
+    </div>
+    <div class="d-flex">
+      Game:
+      <div v-for="(card,i) in player.game" :key="i" class="card-holder big">
+        <v-img class="fullwidth" :src="getCardUrl(card)" @click="discardCardFromGame(i)" />
+      </div>
+    </div>
+    <v-btn @click="endTurn()">End Turn</v-btn>
+  </div>
+  <!-- <div class="player" :class="{'current_player':isCurrentPlayer}">
     <div class="d-flex">
       {{player.id}}
       <div class="card-holder normal">
@@ -32,89 +60,69 @@
       </div>
     </div>
     <v-btn @click="endTurn()">End Turn</v-btn>
-  </div>
+  </div>-->
 </template>
 
 <script>
-
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   props: {
     player: {
-      type: Object, required: true,
-      default: () => {
-        role: {
-          cardName: ""
-        }
-        honorPoints: 0
-        lifePoints: 0
-        position: 0
-        hand: []
-      }
-    },
-    game: { type: Object, require: true }
+      type: Object
+    }
   },
   computed: {
     roleImgUrl() {
-      if (this.isOwner) {
-        return require(`../assets/roles/${this.player.role.cardName}.png`)
-      }
-      else {
-        return require(`../assets/roles/role_back.png`)
-      }
+      return require(`../assets/roles/${this.player.role.cardName}.png`);
     },
     lifePoints() {
       if (!this.player.lifePoints) {
-        return []
+        return [];
       }
       return Array.from(Array(this.player.lifePoints));
     },
     honorPoints() {
       if (!this.player.honorPoints) {
-        return []
+        return [];
       }
       return Array.from(Array(this.player.honorPoints));
-
     },
     characterImgUrl() {
-      return require(`../assets/characters/${this.player._character.cardName}.png`)
-    },
-    isOwner() {
-      return this.player.id == this.$store.getters.username
-    },
-    isCurrentPlayer() {
-      return this.player.id == this.game.currentPlayer.id
+      return require(`../assets/characters/${this.player._character.cardName}.png`);
     }
+
+    //     isCurrentPlayer() {
+    //       return this.player.id == this.game.currentPlayer.id;
+    //     }
   },
   methods: {
     getCardUrl(card) {
-      return require(`../assets/game/${card.cardType}/${card.cardName}.png`)
+      return require(`../assets/game/${card.cardType}/${card.cardName}.png`);
     },
     playCard(index) {
       if (this.isCurrentPlayer) {
-        axios.put(`api/players/${this.player.id}/hand/${index}/play`)
+        axios.put(`api/players/${this.player.id}/hand/${index}/play`);
       }
     },
     discardCardFromGame(index) {
-      axios.put(`api/players/${this.player.id}/game/${index}/discard`)
+      axios.put(`api/players/${this.player.id}/game/${index}/discard`);
     },
-
     endTurn() {
       //if (this.isCurrentPlayer) { TODO uncomment
-      axios.post('/api/game/endTurn')
+      axios.post("/api/game/endTurn");
       //}
     }
   }
-}
+};
 </script>
 
 <style>
-.current_player {
+/* .current_player {
   border: 0.1rem solid red !important;
 }
 .player {
   border: 0.1rem solid black;
   padding: 1rem;
-}
+} */
 </style>
