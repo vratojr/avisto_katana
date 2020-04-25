@@ -2,13 +2,10 @@
   <div v-if="player" class="player" :class="{'current_player':isCurrentPlayer,'owner_player':isOwnerPlayer}">
     <div class="d-flex">
       {{player.id}}
-      <div class="card-holder normal">
-        <v-img v-if="isShogun" class="small" :src="roleImgUrl" />
-        <v-img v-else class="small" :src="require('../assets/roles/role_back.png')" />
-      </div>
-      <div class="card-holder normal">
-        <v-img class="small" :src="characterImgUrl" />
-      </div>
+      <Card v-if="isShogun" :src="roleImgUrl" size="normal" />
+      <Card v-else :src="require('../assets/roles/role_back.png')" size="normal" />
+      <Card :src="characterImgUrl" size="normal" />
+
       <div v-for="i in lifePoints" :key="i" class="icon-holder small">
         <v-img class="small" :src="require('../assets/life_point.png')" />
       </div>
@@ -22,9 +19,7 @@
     </div>
     <div class="d-flex">
       Game:
-      <div v-for="(card,i) in player.game" :key="i" class="card-holder big">
-        <v-img class="fullwidth" :src="getCardUrl(card)" @click="discardCardFromGame(i)" />
-      </div>
+      <Card v-for="(card,i) in player.game" :key="i" :src="getCardUrl(card)" size="big" @click="discardCardFromGame(i)" />
     </div>
     <v-btn @click="endTurn()">End Turn</v-btn>
   </div>
@@ -32,8 +27,12 @@
 
 <script>
 import PlayerMixin from "./PlayerMixin"
+import Card from "./Card"
 
 export default {
+  components: {
+    Card
+  },
   mixins: [PlayerMixin]
 };
 </script>

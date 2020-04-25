@@ -1,12 +1,8 @@
 <template>
   <div v-if="player" :class="{'current_player':isCurrentPlayer}">
     {{player.id}}
-    <div class="card-holder normal">
-      <v-img class="normal" :src="roleImgUrl" />
-    </div>
-    <div class="card-holder normal">
-      <v-img class="normal" :src="characterImgUrl" />
-    </div>
+    <Card :src="roleImgUrl" size="normal" />
+    <Card :src="characterImgUrl" size="normal" />
     <div v-for="i in lifePoints" :key="i" class="icon-holder small">
       <v-img class="small" :src="require('../assets/life_point.png')" />
     </div>
@@ -15,15 +11,11 @@
     </div>
     <div class="d-flex">
       Hand:
-      <div v-for="(card,i) in player.hand" :key="i" class="card-holder big">
-        <v-img class="fullwidth" :src="getCardUrl(card)" @click="playCard(i)" />
-      </div>
+      <Card v-for="(card,i) in player.hand" :key="i" :src="getCardUrl(card)" size="big" @click="playCard(i)" />
     </div>
     <div class="d-flex">
       Game:
-      <div v-for="(card,i) in player.game" :key="i" class="card-holder big">
-        <v-img class="fullwidth" :src="getCardUrl(card)" @click="discardCardFromGame(i)" />
-      </div>
+      <Card v-for="(card,i) in player.game" :key="i" :src="getCardUrl(card)" size="big" @click="discardCardFromGame(i)" />
     </div>
     <v-btn @click="endTurn()">End Turn</v-btn>
   </div>
@@ -64,9 +56,13 @@
 </template>
 
 <script>
+import Card from "./Card"
 import PlayerMixin from "./PlayerMixin"
 
 export default {
+  components: {
+    Card
+  },
   mixins: [PlayerMixin]
 };
 </script>
