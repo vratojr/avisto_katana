@@ -10,7 +10,7 @@ export class Player {
   }
   set character(value: CharacterCard) {
     this._character = value;
-    this.lifePoints = value.lifePoints;
+    this.initLifePoints(value.lifePoints);
   }
   hand: Array<GameCard> = new Array<GameCard>();
 
@@ -18,14 +18,47 @@ export class Player {
 
   position: number;
 
-  honorPoints: number;
+  private maxHonorPoints: number;
 
-  lifePoints: number;
+  private _honorPoints: number;
+
+  private _lifePoints: number;
+
+  private maxLifePoints: number;
 
   constructor(id: string) {
     this.id = id;
   }
 
+  get honorPoints(): number {
+    return this._honorPoints;
+  }
+  initHonorPoints(value: number) {
+    this._honorPoints = value;
+    this.maxHonorPoints = value;
+  }
+
+  incrementHonorPoints(value: number): boolean {
+    if (this._honorPoints + value > this.maxHonorPoints) {
+      return false;
+    }
+    this._honorPoints += value;
+  }
+
+  get honolifePointsrPoints(): number {
+    return this._lifePoints;
+  }
+  initLifePoints(value: number) {
+    this._lifePoints = value;
+    this.maxLifePoints = value;
+  }
+
+  incrementLifePoints(value: number): boolean {
+    if (this._lifePoints + value > this.maxLifePoints) {
+      return false;
+    }
+    this._lifePoints += value;
+  }
   reset() {
     this.hand = new Array<GameCard>();
     this.game = new Array<GameCard>();

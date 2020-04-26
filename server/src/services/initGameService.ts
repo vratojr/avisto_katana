@@ -54,11 +54,11 @@ const initHonorPoints = function () {
 
   const ps = game.players;
   const otherHP = ps.length < 6 ? 3 : 4;
-  ps.forEach(p => p.honorPoints = otherHP);
+  ps.forEach(p => p.initHonorPoints(otherHP));
 
   //Override for the shogun
   const shogun = getShogun();
-  shogun.honorPoints = 5;
+  shogun.initHonorPoints(5);
 };
 
 export const addPlayer = function (id: string): Player {

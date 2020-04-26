@@ -1,5 +1,5 @@
 <template>
-  <div class="card-holder zoom" :class="size">
+  <div class="card-holder zoom" :class="size" @click="$emit('click')">
     <v-img :src="src" />
   </div>
 </template>
@@ -14,27 +14,31 @@ export default {
 };
 </script>
 
-<style>
-.card-holder.normal {
-  width: 5rem;
-}
+<style lang="scss">
+@import "../scss/shadow";
 
-.card-holder.normal {
-  width: 5rem;
-}
+.card-holder {
+  @extend %shadow-2-dp;
+  margin: 0.2rem;
 
-.card-holder.big {
-  width: 9rem;
+  .normal {
+    width: 5rem;
+  }
+
+  .big {
+    width: 9rem;
+  }
 }
 
 .zoom {
   transition: transform 0.2s; /* Animation */
-}
 
-.zoom:hover {
-  transform: scale(
-    2
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  z-index: 1;
+  :hover {
+    transform: scale(
+      4
+    ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    z-index: 1;
+    transition-delay: 0.4s;
+  }
 }
 </style>

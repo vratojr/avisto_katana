@@ -63,6 +63,14 @@ app.put("/api/players/:id/game/:pos/discard", (req, res) => {
     res.json(gameService.discardCard(req.params.id, (Number)(req.params.pos)));
 });
 
+app.put("/api/players/:id/addHonorPoints", (req, res) => {
+    res.json(gameService.addHonorPoints(req.params.id, (Number)(req.query.quantity)));
+});
+
+app.put("/api/players/:id/addLifePoints", (req, res) => {
+    res.json(gameService.addLifePoints(req.params.id, (Number)(req.query.quantity)));
+});
+
 app.post("/api/game/endTurn", (req, res) => {
     res.json(gameService.endTurn());
 });

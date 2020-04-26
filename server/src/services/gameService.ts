@@ -13,7 +13,7 @@ const drawGameCard = function (): GameCard {
 
     for (let i = 0; i < game.players.length; i++) {
       const p = game.players[i];
-      p.honorPoints--;
+      p.incrementHonorPoints(-1);
       if (p.honorPoints == 0) {
         game.end();
         return null;
@@ -36,22 +36,22 @@ export const getPlayer = function (id: string): Player {
   return players.find(p => p.id == id);
 };
 
-export const drawCard = function (id: string): Player {
-  const player = players.find(p => p.id == id);
+export const drawCard = function (playerId: string): Player {
+  const player = players.find(p => p.id == playerId);
   const card = drawGameCard();
   card && player.hand.push(card);
   return player;
 };
 
-export const drawDiscarded = function (id: string): Player {
-  const player = players.find(p => p.id == id);
+export const drawDiscarded = function (playerId: string): Player {
+  const player = players.find(p => p.id == playerId);
   const card = game.discardedGameDeck.drawLast();
   player.hand.push(card);
   return player;
 };
 
-export const playCard = function (id: string, pos: number): Card {
-  const player = players.find(p => p.id == id);
+export const playCard = function (playerId: string, pos: number): Card {
+  const player = players.find(p => p.id == playerId);
   const card = player.playCard(pos);
   if (card && card.cardType != CardType.Permanent) {
     game.discardedGameDeck.add(card);
@@ -59,10 +59,22 @@ export const playCard = function (id: string, pos: number): Card {
   return card;
 };
 
-export const discardCard = function (id: string, pos: number): Card {
-  const player = players.find(p => p.id == id);
+export const discardCard = function (playerId: string, pos: number): Card {
+  const player = players.find(p => p.id == playerId);
   const card = player.removeCardFromGame(pos);
   game.discardedGameDeck.add(card);
 
   return card;
+};
+
+export const addHonorPoints = function (playerId: string, quantity: number): Player {
+  const player = players.find(p => p.id == playerId);
+  player.incrementHonorPoints(quantity);
+  return player;
+};
+
+export const addLifePoints = function (playerId: string, quantity: number): Player {
+  const player = players.find(p => p.id == playerId);
+  player.incrementLifePoints(quantity);
+  return player;
 };
