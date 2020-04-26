@@ -1,0 +1,11 @@
+version: '2'
+services:
+  kserver:
+      image: "kserver"
+
+  knginx:
+      image: "knginx"
+      ports:
+        - "80:80" 
+      depends_on:
+        - kserver
