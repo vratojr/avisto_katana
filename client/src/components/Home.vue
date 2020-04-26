@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div>Waiting for the game to begin. Connected players {{game.players.length}}</div>
+    <div>Waiting for the game to begin. Connected players:</div>
+    <div v-for="p in game.players" :key="p.name">{{p.id}}</div>
     <div v-if="isAdmin">
       <v-btn @click="newGame">New Game</v-btn>
     </div>
