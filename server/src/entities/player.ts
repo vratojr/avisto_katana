@@ -17,32 +17,15 @@ export class Player {
   game: Array<GameCard> = new Array<GameCard>();
 
   position: number;
-
-  private maxHonorPoints: number;
-
-  private _honorPoints: number;
+  honorPoints: number;
 
   private _lifePoints: number;
 
   private maxLifePoints: number;
 
-  constructor(id: string) {
+  constructor(id: string, position: number) {
     this.id = id;
-  }
-
-  get honorPoints(): number {
-    return this._honorPoints;
-  }
-  initHonorPoints(value: number) {
-    this._honorPoints = value;
-    this.maxHonorPoints = value;
-  }
-
-  incrementHonorPoints(value: number): boolean {
-    if (this._honorPoints + value > this.maxHonorPoints) {
-      return false;
-    }
-    this._honorPoints += value;
+    this.position = position;
   }
 
   get honolifePointsrPoints(): number {

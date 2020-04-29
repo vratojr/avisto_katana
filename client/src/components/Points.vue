@@ -12,7 +12,7 @@
       <div v-for="i in honorPoints" :key="i" class="icon-holder small">
         <v-img class="small" :src="require('../assets/honor_point.png')" @click="alterHonorPoints(-1)" />
       </div>
-      <div v-for="i in maxHonorPoints" :key="i" class="icon-holder small">
+      <div class="icon-holder small">
         <v-img class="small dark" :src="require('../assets/honor_point.png')" @click="alterHonorPoints(1)" />
       </div>
     </div>
@@ -46,16 +46,10 @@ export default {
       return Array.from(Array(this.player.maxLifePoints - this.player._lifePoints))
     },
     honorPoints() {
-      if (!this.player._honorPoints) {
+      if (!this.player.honorPoints) {
         return [];
       }
-      return Array.from(Array(this.player._honorPoints));
-    },
-    maxHonorPoints() {
-      if (!this.player._honorPoints) {
-        return [];
-      }
-      return Array.from(Array(this.player.maxHonorPoints - this.player._honorPoints));
+      return Array.from(Array(this.player.honorPoints));
     },
   },
   methods: {

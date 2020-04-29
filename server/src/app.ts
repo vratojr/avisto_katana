@@ -9,6 +9,7 @@ import { SESSION_SECRET } from "./util/secrets";
 
 import * as gameService from "./services/gameService";
 import * as initGameService from "./services/initGameService";
+import * as testService from "./services/testService";
 import { game } from "./entities/game";
 
 // Create Express server
@@ -85,9 +86,12 @@ app.post("/api/admin/newGame", (req, res) => {
 });
 
 app.post("/api/test/players/add5", (req, res) => {
-    ["Simone", "Hannah", "Chiara", "Alice", "Alberto"].forEach(n => {
-        initGameService.addPlayer(n);
-    });
+    testService.add5Players();
+    res.json(game.players);
+});
+
+app.post("/api/test/emptyGameDeck", (req, res) => {
+    testService.emptyGameDeck();
     res.json(game.players);
 });
 

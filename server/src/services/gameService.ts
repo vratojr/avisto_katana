@@ -13,16 +13,15 @@ const drawGameCard = function (): GameCard {
 
     for (let i = 0; i < game.players.length; i++) {
       const p = game.players[i];
-      p.incrementHonorPoints(-1);
+      p.honorPoints--;
       if (p.honorPoints == 0) {
         game.end();
         return null;
       }
     }
 
-    //If not, shuffle the discarded into the game deck and restart
-    game.gameDeck = game.discardedGameDeck;
-    game.discardedGameDeck.empty();
+    //If not, swap the decks, shuffle and restart
+    [game.gameDeck, game.discardedGameDeck] = [game.discardedGameDeck, game.gameDeck];
     game.gameDeck.shuffle();
   }
   return card;
@@ -69,7 +68,7 @@ export const discardCard = function (playerId: string, pos: number): Card {
 
 export const addHonorPoints = function (playerId: string, quantity: number): Player {
   const player = players.find(p => p.id == playerId);
-  player.incrementHonorPoints(quantity);
+  player.honorPoints += (quantity);
   return player;
 };
 

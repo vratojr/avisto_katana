@@ -28,45 +28,52 @@ const giveHands = function () {
 
 };
 
+// Rotate the positions until the shogun is the first
 const initPositions = function (ps: Array<Player>) {
-  const positions = Array.from(new Array(ps.length), (x, i) => i);
-  const shuffleCnt = getRandomInt(0, positions.length - 1);
-  for (let i = 0; i < shuffleCnt; i++) {
-    const rndNo = getRandomInt(0, positions.length - 1);
-    const position = positions[i];
-    positions[i] = positions[rndNo];
-    positions[rndNo] = position;
-  }
-
-  for (let i = 0; i < positions.length; i++) {
-    ps[i].position = positions[i];
-  }
 
   //Shogun always first
-  const shogun = getShogun();
-  const first = ps.find(p => p.position == 0);
+  let shogun = getShogun();
+  while (shogun.position > 0) {
+    ps.forEach(p => {
+      if (p.position < ps.length - 1) {
+        p.position++;
+      }
+      else {
+        p.position = 0;
+      }
+    });
+    shogun = getShogun();
+  }
 
-  first.position = shogun.position;
-  shogun.position = 0;
 };
 
 const initHonorPoints = function () {
 
   const ps = game.players;
   const otherHP = ps.length < 6 ? 3 : 4;
-  ps.forEach(p => p.initHonorPoints(otherHP));
+  ps.forEach(p => p.honorPoints = otherHP);
 
   //Override for the shogun
   const shogun = getShogun();
-  shogun.initHonorPoints(5);
+  shogun.honorPoints = 5;
+};
+
+const initRoles = function () {
+
+  game.players.forEach(p => {
+    p.role = game.roleDeck.draw();
+    p.character = game.characterDeck.draw();
+    p.reset();
+  });
+
 };
 
 export const addPlayer = function (id: string): Player {
   const players = game.players;
   let player = players.find(p => p.id == id);
   if (!player) {
-    players.push(new Player(id));
-    player = players[players.length - 1];
+    player = new Player(id, players.length);
+    players.push(player);
   }
   return player;
 };
@@ -79,11 +86,7 @@ export const initGame = function () {
 
   initDeckService.initDecks(ps.length);
 
-  ps.forEach(p => {
-    p.role = game.roleDeck.draw();
-    p.character = game.characterDeck.draw();
-    p.reset();
-  });
+  initRoles();
 
   initHonorPoints();
 

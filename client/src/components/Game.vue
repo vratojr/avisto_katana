@@ -38,24 +38,15 @@ export default {
         cards: []
       },
       currentPlayer: {}
-    }
+    },
+    interval: {}
   }),
   mounted() {
-    setInterval(this.update, 1000);
+    this.interval = setInterval(this.update, 500);
   },
   computed: {
     isOwner() {
-      return !!this.mainPlayer;
-    },
-    mainPlayer() {
-      if (this.game.players.length == 0) {
-        return null;
-      }
-      const player = this.game.players.find(p => p.id == this.$store.getters.username)
-      return {
-        ...player,
-        isCurrentPlayer: this.game.currentPlayer.id == player.id
-      }
+      return this.game.players.find(p => p.id == this.$store.getters.username) != null
     },
     players() {
       if (this.game.players.length == 0) {
@@ -73,7 +64,7 @@ export default {
         };
       });
 
-      // rotate the player list to that the owner player is at the center
+      // rotate the player list so that the owner player is at the center
       const centerPos = Math.floor(res.length / 2);
       let ownerPlayerPos = res.findIndex(
         p => p.id == this.$store.getters.username
@@ -96,6 +87,10 @@ export default {
     async update() {
       let res = await axios.get("/api/game");
       Object.assign(this.game, res.data ? res.data : {});
+      if (this.game.ended) {
+        alert("The game has ended. Someone lost all his honor!!!")
+        clearInterval(this.interval);// Brutal. The game won't then restart correctly
+      }
     }
   }
 };

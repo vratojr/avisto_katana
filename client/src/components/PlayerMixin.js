@@ -28,17 +28,15 @@ export default {
       return require(`../assets/game/${card.cardType}/${card.cardName}.png`);
     },
     playCard(index) {
-      if (this.isCurrentPlayer) {
-        axios.put(`api/players/${this.player.id}/hand/${index}/play`);
-      }
+      axios.put(`api/players/${this.player.id}/hand/${index}/play`);
     },
     discardCardFromGame(index) {
       axios.put(`api/players/${this.player.id}/game/${index}/discard`);
     },
 
     endTurn() {
-      //if (this.isCurrentPlayer) { TODO uncomment
-      axios.post("/api/game/endTurn");
+      //if (this.isCurrentPlayer) {
+        axios.post("/api/game/endTurn");
       //}
     }
   }

@@ -26,7 +26,7 @@ export class Game {
   }
 
   nextPlayer(): Player {
-    let currIndex = 0;
+    let currIndex = -1;
     if (this.currentPlayer) {
       currIndex = this.orderedPlayers().indexOf(this.currentPlayer);
     }
@@ -55,6 +55,7 @@ export class Game {
   reset() {
     this.started = false;
     this.ended = false;
+    this.currentPlayer = null;
   }
 }
 

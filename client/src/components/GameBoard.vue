@@ -1,20 +1,19 @@
 <template>
-  <div class="d-flex section">
-    <div class="d-flex flex-column">
-      <div class="card-holder normal">
-        <v-img v-if="game.gameDeck.cards.length>0" class="fullwidth" :src="require(`../assets/game/game_back.png`)" @click="drawGameCard" />
-      </div>
-      <div v-if="lastDiscardedCard" class="card-holder normal">
-        <v-img class="fullwidth" :src="lastDiscardedCardImage" @click="drawDiscarded" />
-      </div>
+  <div class="d-flex section ml-5">
+    <div class="card-holder normal">
+      <v-img v-if="game.gameDeck.cards.length>0" class="fullwidth" :src="require(`../assets/game/game_back.png`)" @click="drawGameCard" />
     </div>
+    <Card v-if="lastDiscardedCard" :src="lastDiscardedCardImage" size="normal" @click="drawDiscarded" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import Card from "./Card"
 export default {
+  components: {
+    Card,
+  },
   props: {
     game: { type: Object, required: true }
   },
@@ -46,7 +45,7 @@ export default {
 </script>
 
 <style>
-.mr-100 {
-  margin-right: 100px;
+.ml-5 {
+  margin-left: 5rem;
 }
 </style>
