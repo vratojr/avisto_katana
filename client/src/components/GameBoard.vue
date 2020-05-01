@@ -7,19 +7,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from "axios";
-import Card from "./Card"
-export default {
+import Vue from "vue";
+import { Game } from "@shared/entities/game";
+import Card from "./Card.vue";
+
+export default Vue.extend({
   components: {
-    Card,
+    Card
   },
   props: {
-    game: { type: Object, required: true }
+    game: { type: Game, required: true }
   },
   computed: {
     lastDiscardedCard() {
-      if (this.game.discardedGameDeck.cards.length == 0) {
+      if (this.game.discardedGameDeck.cards.length === 0) {
         return null;
       }
       return this.game.discardedGameDeck.cards[
@@ -41,7 +44,7 @@ export default {
       axios.put(`api/players/${this.$store.getters.username}/draw`);
     }
   }
-};
+});
 </script>
 
 <style>

@@ -18,18 +18,19 @@
   </v-row>
 </template>
 
-<script>
-import Card from "./Card"
-import Points from "./Points"
+<script lang="ts">
+import Card from "./Card.vue";
+import Points from "./Points.vue";
 import PlayerMixin from "./PlayerMixin";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   components: {
     Card,
     Points
   },
   mixins: [PlayerMixin]
-};
+});
 </script>
 
 <style>

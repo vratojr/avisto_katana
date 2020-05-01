@@ -4,14 +4,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   props: {
     src: { type: String },
-    size: { type: String },
+    size: { type: String }
   }
-};
+});
 </script>
 
 <style lang="scss">

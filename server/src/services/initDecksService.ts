@@ -1,7 +1,7 @@
-import { Deck, CharacterDeck, GameDeck } from "../entities/deck";
-import { Card, GameCard, WeaponCard, CharacterCard, CardType } from  "../entities/card";
+import { Deck, CharacterDeck, GameDeck } from "@shared/entities/deck";
+import { Card, GameCard, WeaponCard, CharacterCard, CardType } from  "@shared/entities/card";
 
-import { game } from "../entities/game";
+import { game } from "@shared/entities/game";
 
 /* Performs only the initialization of the decks. 
 The rest of the logic should be into the game service.

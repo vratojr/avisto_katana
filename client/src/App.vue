@@ -25,8 +25,9 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "App",
   computed: {
     manualUrl() {
@@ -35,8 +36,8 @@ export default {
   },
   methods: {
     newGame() {
-      axios.post("/api/admin/newGame")
+      axios.post("/api/admin/newGame");
     }
   }
-};
+});
 </script>

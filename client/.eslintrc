@@ -1,9 +1,12 @@
 {
-  "parser": "@typescript-eslint/parser",
+  "parser": "vue-eslint-parser",
   "extends": [
-    "plugin:@typescript-eslint/recommended"
+    "plugin:vue/essential",
+    "@vue/standard",
+    "@vue/typescript/recommended"
   ],
   "parserOptions": {
+    "parser": "@typescript-eslint/parser",
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
@@ -24,6 +27,8 @@
         "ignoreParameters": true
       }
     ],
-    "@typescript-eslint/no-unused-vars": "warn"
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-unused-labels": "off",
+    "space-before-function-paren": "off"
   }
 }

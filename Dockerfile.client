@@ -1,0 +1,4 @@
+FROM nginx 
+RUN mkdir /app
+COPY client/dist /app
+COPY client/nginx/nginx.conf /etc/nginx/nginx.conf

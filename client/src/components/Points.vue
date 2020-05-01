@@ -19,10 +19,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import axios from "axios";
 
-export default {
+export default Vue.extend({
   props: {
     player: {
       type: Object
@@ -33,40 +34,42 @@ export default {
     }
   },
   computed: {
-    lifePoints() {
+    lifePoints(): Array<number> {
       if (!this.player._lifePoints) {
         return [];
       }
-      return Array.from(Array(this.player._lifePoints))
+      return Array.from(Array(this.player._lifePoints));
     },
-    maxLifePoints() {
+    maxLifePoints(): Array<number> {
       if (!this.player.maxLifePoints) {
         return [];
       }
-      return Array.from(Array(this.player.maxLifePoints - this.player._lifePoints))
+      return Array.from(
+        Array(this.player.maxLifePoints - this.player._lifePoints)
+      );
     },
-    honorPoints() {
+    honorPoints(): Array<number> {
       if (!this.player.honorPoints) {
         return [];
       }
       return Array.from(Array(this.player.honorPoints));
-    },
+    }
   },
   methods: {
-    alterLifePoints(quantity) {
-      if (!this.editable) return
+    alterLifePoints(quantity): void {
+      if (!this.editable) return;
       axios.put(
         `api/players/${this.player.id}/addLifePoints?quantity=${quantity}`
       );
     },
-    alterHonorPoints(quantity) {
-      if (!this.editable) return
+    alterHonorPoints(quantity): void {
+      if (!this.editable) return;
       axios.put(
         `api/players/${this.player.id}/addHonorPoints?quantity=${quantity}`
       );
     }
   }
-}
+});
 </script>
 
 <style>

@@ -19,25 +19,21 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
+import axios from "axios";
+import Vue from "vue";
 
-import axios from 'axios';
-
-export default {
+export default Vue.extend({
   data: () => ({
-    username: ''
+    username: ""
   }),
   methods: {
     submit() {
       axios.post("/api/players/add", { name: this.username }).then(() => {
-        this.$store.commit('login', this.username);
-        this.$router.push('/')
-      })
+        this.$store.commit("login", this.username);
+        this.$router.push("/");
+      });
     }
   }
-
-}
+});
 </script>
-
-<style scoped>
-</style>

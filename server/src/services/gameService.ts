@@ -1,7 +1,7 @@
 
-import { Player } from "../entities/player";
-import { Card, CardType, GameCard } from "../entities/card";
-import { game } from "../entities/game";
+import { Player } from "@shared/entities/player";
+import { Card, CardType, GameCard } from "@shared/entities/card";
+import { game } from "@shared/entities/game";
 
 const players = game.players;
 

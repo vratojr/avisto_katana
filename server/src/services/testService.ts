@@ -1,5 +1,5 @@
 import * as initGameService from "./initGameService";
-import { game } from "../entities/game";
+import { game } from "@shared/entities/game";
 
 export const add5Players = function () {
   ["Simone", "Hannah", "Chiara", "Alice", "Alberto"].forEach(n => {
@@ -8,5 +8,5 @@ export const add5Players = function () {
 };
 
 export const emptyGameDeck = function () {
-  game.gameDeck.cards.splice(0, game.gameDeck.cards.length - 2);  
+  game.gameDeck.cards.splice(0, game.gameDeck.cards.length - 2);
 };

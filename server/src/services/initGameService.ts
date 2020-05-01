@@ -1,8 +1,8 @@
-import { game } from "../entities/game";
-import { Player } from "../entities/player";
+import { game } from "@shared/entities/game";
+import { Player } from "@shared/entities/player";
 import { RoleShogun } from "./constants";
 import * as initDeckService from "./initDecksService";
-import { getRandomInt } from "./utils";
+import { getRandomInt } from "@shared/utils/utils";
 
 const getShogun = function () {
   return game.players.find(p => p.role.cardName == RoleShogun);
