@@ -29,6 +29,7 @@
     ],
     "@typescript-eslint/no-unused-vars": "warn",
     "no-unused-labels": "off",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "brace-style": "stroustrup"
   }
 }

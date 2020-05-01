@@ -7,7 +7,7 @@ import store from "@/store";
 
 Vue.use(VueRouter);
 
-const checkLogin: NavigationGuard = function(_to, _from, next) {
+const checkLogin: NavigationGuard = function (_to, _from, next) {
   console.log("user:" + store.getters.username);
   if (!store.getters.username) {
     next({ name: "login" });
@@ -20,7 +20,7 @@ const checkLogin: NavigationGuard = function(_to, _from, next) {
 const routes: Array<RouteConfig> = [
   { path: "/", name: "home", component: Home, beforeEnter: checkLogin },
   { path: "/game", name: "game", component: Game, beforeEnter: checkLogin },
-  { path: "/login", name: "login", component: Login },
+  { path: "/login", name: "login", component: Login }
 ];
 
 // 3. Create the router instance and pass the `routes` option

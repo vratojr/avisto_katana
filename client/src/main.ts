@@ -10,7 +10,7 @@ Vue.use(Vuex);
 Vue.config.productionTip = false;
 
 Vue.use(vuetify, {
-  iconfont: "fa",
+  iconfont: "fa"
 });
 
 new Vue({
