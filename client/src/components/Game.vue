@@ -22,6 +22,7 @@ import axios from "axios";
 import Player from "@/components/Player.vue";
 import GameBoard from "@/components/GameBoard.vue";
 import MainPlayer from "@/components/MainPlayer.vue";
+import { Game } from "@shared/entities/game";
 
 export default Vue.extend({
   components: {
@@ -30,16 +31,7 @@ export default Vue.extend({
     MainPlayer
   },
   data: () => ({
-    game: {
-      players: [],
-      gameDeck: {
-        cards: []
-      },
-      discardedGameDeck: {
-        cards: []
-      },
-      currentPlayer: {}
-    },
+    game: new Game(),
     interval: {}
   }),
   mounted() {
