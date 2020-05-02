@@ -1,5 +1,5 @@
 <template>
-  <div class="card-holder zoom" :class="size" @click="$emit('click')">
+  <div class="card-holder zoom" :class="[size,hover?'zoomed':'']" @click="$emit('click')" @mousemove.ctrl="hover = true" @mouseleave="hover = false">
     <v-img :src="src" />
   </div>
 </template>
@@ -11,6 +11,11 @@ export default Vue.extend({
   props: {
     src: { type: String },
     size: { type: String }
+  },
+  data() {
+    return {
+      hover: false
+    };
   }
 });
 </script>
@@ -34,12 +39,11 @@ export default Vue.extend({
 .zoom {
   transition: transform 0.2s; /* Animation */
 
-  :hover {
+  &.zoomed {
     transform: scale(
       4
     ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     z-index: 1;
-    transition-delay: 0.4s;
   }
 }
 </style>
