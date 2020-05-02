@@ -1,5 +1,5 @@
 import { Deck, CharacterDeck, GameDeck } from "@shared/entities/deck";
-import { Card, GameCard, WeaponCard, CharacterCard, CardType } from  "@shared/entities/card";
+import { Card, GameCard, WeaponCard, CharacterCard, CardType } from "@shared/entities/card";
 
 import { game } from "@shared/entities/game";
 
@@ -18,7 +18,7 @@ const initRoleDeck = function (players: number) {
       break;
     case 5:
       RoleCards.set(new Card("samurai"), 1);
-      RoleCards.set(new Card("ninja"), 1);
+      RoleCards.set(new Card("ninja"), 2);
       RoleCards.set(new Card("ronin"), 1);
       break;
     case 6:
