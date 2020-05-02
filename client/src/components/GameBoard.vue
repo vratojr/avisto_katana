@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
+import * as commService from "../services/commService";
 import Vue from "vue";
 import { Game } from "@shared/entities/game";
 import Card from "./Card.vue";
@@ -38,10 +38,10 @@ export default Vue.extend({
   },
   methods: {
     drawDiscarded() {
-      axios.put(`api/players/${this.$store.getters.username}/drawDiscarded`);
+      commService.drawDiscarded();
     },
     drawGameCard() {
-      axios.put(`api/players/${this.$store.getters.username}/draw`);
+      commService.drawGameCard();
     }
   }
 });

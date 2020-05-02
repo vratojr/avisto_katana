@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import * as commService from "./services/commService";
 import Vue from "vue";
 
 export default Vue.extend({

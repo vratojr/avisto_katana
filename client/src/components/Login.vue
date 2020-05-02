@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
+import * as commService from "../services/commService";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -29,7 +29,7 @@ export default Vue.extend({
   }),
   methods: {
     submit() {
-      axios.post("/api/players/add", { name: this.username }).then(() => {
+      commService.addPlayer(this.username).then(() => {
         this.$store.commit("login", this.username);
         this.$router.push("/");
       });

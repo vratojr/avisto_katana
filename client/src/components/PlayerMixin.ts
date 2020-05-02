@@ -1,5 +1,5 @@
 import Vue from "vue";
-import axios from "axios";
+import * as commService from "../services/commService";
 import { GameCard } from "@shared/entities/card";
 
 export default Vue.extend({
@@ -30,15 +30,15 @@ export default Vue.extend({
       return require(`../assets/game/${card.cardType}/${card.cardName}.png`);
     },
     playCard(index: number): void {
-      axios.put(`api/players/${this.player.id}/hand/${index}/play`);
+      commService.playCard(index);
     },
     discardCardFromGame(index: number) {
-      axios.put(`api/players/${this.player.id}/game/${index}/discard`);
+      commService.discardCardFromGame(index);
     },
 
     endTurn() {
       // if (this.isCurrentPlayer) {
-      axios.post("/api/game/endTurn");
+      commService.endTurn()
       // }
     }
   }

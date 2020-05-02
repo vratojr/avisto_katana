@@ -18,7 +18,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
 import Player from "@/components/Player.vue";
 import GameBoard from "@/components/GameBoard.vue";
 import MainPlayer from "@/components/MainPlayer.vue";
@@ -30,14 +29,10 @@ export default Vue.extend({
     GameBoard,
     MainPlayer
   },
-  data: () => ({
-    game: new Game(),
-    interval: {}
-  }),
-  mounted() {
-    this.interval = setInterval(this.update, 500);
-  },
   computed: {
+    game() {
+      return this.$store.state.game;
+    },
     isOwner() {
       return (
         this.game.players.find(p => p.id === this.$store.getters.username) !=
@@ -76,16 +71,6 @@ export default Vue.extend({
       }
 
       return res;
-    }
-  },
-  methods: {
-    async update() {
-      const res = await axios.get("/api/game");
-      Object.assign(this.game, res.data ? res.data : {});
-      if (this.game.ended) {
-        alert("The game has ended. Someone lost all his honor!!!");
-        clearInterval(this.interval); // Brutal. The game won't then restart correctly
-      }
     }
   }
 });

@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
+import * as commService from "../services/commService";
 
 export default Vue.extend({
   props: {
@@ -58,15 +58,11 @@ export default Vue.extend({
   methods: {
     alterLifePoints(quantity): void {
       if (!this.editable) return;
-      axios.put(
-        `api/players/${this.player.id}/addLifePoints?quantity=${quantity}`
-      );
+      commService.alterLifePoints(quantity);
     },
     alterHonorPoints(quantity): void {
       if (!this.editable) return;
-      axios.put(
-        `api/players/${this.player.id}/addHonorPoints?quantity=${quantity}`
-      );
+      commService.alterHonorPoints(quantity);
     }
   }
 });
