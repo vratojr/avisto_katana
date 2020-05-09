@@ -12,7 +12,7 @@
           <span>X{{player.hand.length}}</span>
         </div>
         <div class="title text-center fullwidth">Game</div>
-        <Card v-for="(card,i) in player.game" :key="i" :src="getCardUrl(card)" size="big" @click="discardCardFromGame(i)" />
+        <Card v-for="(card,i) in player.game" :key="i" :src="getCardUrl(card)" size="normal" @click="discardCardFromGame(i)" />
       </v-row>
     </v-col>
   </v-row>
