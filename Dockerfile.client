@@ -2,3 +2,4 @@ FROM nginx
 RUN mkdir /app
 COPY client/dist /app
 COPY client/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY client/nginx/conf.d/00-websockets.conf /etc/nginx/conf.d

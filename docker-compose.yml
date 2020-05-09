@@ -2,10 +2,13 @@ version: '2'
 services:
   kserver:
       image: "kserver"
+      ports:
+        - "3000:3000" 
 
   knginx:
       image: "knginx"
       ports:
-        - "80:80" 
+        - "80:80"
+
       depends_on:
         - kserver

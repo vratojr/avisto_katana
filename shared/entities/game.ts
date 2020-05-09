@@ -1,20 +1,34 @@
 import { Player } from "../entities/player";
 import { GameDeck, Deck, CharacterDeck } from "./deck";
 import { GameCard, Card, CharacterCard } from "./card";
+import { JsonProperty, Serializable } from 'typescript-json-serializer';
+
+export enum GameState {
+  Stopped,
+  Started,
+  Ended
+}
+
+@Serializable()
 export class Game {
+
+  @JsonProperty()
   currentPlayer: Player
 
+  @JsonProperty()
   players: Array<Player> = new Array<Player>();
 
-  started: boolean
+  @JsonProperty()
+  state: GameState = GameState.Stopped;
 
-  ended: boolean
-
+  @JsonProperty()
   gameDeck: GameDeck = new GameDeck(new Map<GameCard, number>());
 
+  @JsonProperty()
   discardedGameDeck = new GameDeck(new Map<GameCard, number>());
 
   roleDeck: Deck = new Deck(new Map<Card, number>());
+
   characterDeck: CharacterDeck = new CharacterDeck(new Map<CharacterCard, number>());
 
   orderedPlayers() {
@@ -42,19 +56,16 @@ export class Game {
   }
 
   start() {
-    this.started = true;
-    this.ended = false;
+    this.state = GameState.Started
     this.nextPlayer();
   }
 
   end() {
-    this.started = true;
-    this.ended = true;
+    this.state = GameState.Ended;
   }
 
   reset() {
-    this.started = false;
-    this.ended = false;
+    this.state = GameState.Stopped;
     this.currentPlayer = null;
   }
 }

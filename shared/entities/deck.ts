@@ -1,7 +1,14 @@
 import { getRandomInt } from "../utils/utils";
-import { Card, GameCard, CharacterCard } from  "./card";
+import { Card, GameCard, CharacterCard } from "./card";
+import { JsonProperty, Serializable } from 'typescript-json-serializer';
+
+@Serializable()
 export class Deck {
+
+  @JsonProperty()
   cards: Array<Card>
+
+  @JsonProperty()
   cardTemplates: Map<Card, number>
 
   constructor(cardTypes: Map<Card, number>) {

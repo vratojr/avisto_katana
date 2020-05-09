@@ -1,42 +1,41 @@
-import axios from "axios"
 import store from "../store"
+import Vue from "vue"
+import { Action, PlayerAction, ActionType, CardAction, QuantityAction } from "@shared/websockets/message"
 
 export const addPlayer = function (name: string) {
-  return axios.post("/api/players/add", { name: name })
+  Vue.prototype.$socket.sendObj(new PlayerAction(ActionType.AddPlayer, name))
+  return Promise.resolve();
 }
 
 export const newGame = function () {
-  return axios.post("/api/admin/newGame")
-}
-
-export const updateGame = function () {
-  return axios.get("/api/game")
+  Vue.prototype.$socket.sendObj(new Action(ActionType.NewGame))
+  store.commit("newGame")
 }
 
 export const drawDiscarded = function () {
-  return axios.put(`api/players/${store.getters.username}/drawDiscarded`);
+  Vue.prototype.$socket.sendObj(new PlayerAction(ActionType.DrawDiscardedCard, store.getters.username))
 }
 
 export const drawGameCard = function () {
-  return axios.put(`api/players/${store.getters.username}/draw`);
+  Vue.prototype.$socket.sendObj(new PlayerAction(ActionType.DrawGameCard, store.getters.username))
 }
 
 export const playCard = function (index: number) {
-  return axios.put(`api/players/${store.getters.username}/hand/${index}/play`);
+  Vue.prototype.$socket.sendObj(new CardAction(ActionType.PlayCard, store.getters.username, index))
 }
 
 export const discardCardFromGame = function (index: number) {
-  return axios.put(`api/players/${store.getters.username}/game/${index}/discard`);
+  Vue.prototype.$socket.sendObj(new CardAction(ActionType.DiscardCardFromGame, store.getters.username, index))
 }
 
 export const alterLifePoints = function (quantity: number) {
-  axios.put(`api/players/${store.getters.username}/addLifePoints?quantity=${quantity}`);
+  Vue.prototype.$socket.sendObj(new QuantityAction(ActionType.AddLifePoints, store.getters.username, quantity))
 }
 
 export const alterHonorPoints = function (quantity: number) {
-  axios.put(`api/players/${store.getters.username}/addHonorPoints?quantity=${quantity}`);
+  Vue.prototype.$socket.sendObj(new QuantityAction(ActionType.AddHonorPoints, store.getters.username, quantity))
 }
 
 export const endTurn = function () {
-  return axios.post("/api/game/endTurn");
+  Vue.prototype.$socket.sendObj(new PlayerAction(ActionType.EndTurn, store.getters.username))
 }

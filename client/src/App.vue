@@ -36,7 +36,7 @@ export default Vue.extend({
   },
   methods: {
     newGame() {
-      axios.post("/api/admin/newGame");
+      commService.newGame();
     }
   }
 });

@@ -1,9 +1,14 @@
 import { Card, GameCard, CharacterCard, CardType } from "./card";
+import { JsonProperty, Serializable } from 'typescript-json-serializer';
 
+@Serializable()
 export class Player {
+  @JsonProperty()
   id: string;
+  @JsonProperty()
   role: Card;
 
+  @JsonProperty()
   private _character: CharacterCard;
   get character(): CharacterCard {
     return this._character;
@@ -12,15 +17,23 @@ export class Player {
     this._character = value;
     this.initLifePoints(value.lifePoints);
   }
+
+  @JsonProperty()
   hand: Array<GameCard> = new Array<GameCard>();
 
+  @JsonProperty()
   game: Array<GameCard> = new Array<GameCard>();
 
+  @JsonProperty()
   position: number;
+
+  @JsonProperty()
   honorPoints: number;
 
+  @JsonProperty()
   private _lifePoints: number;
 
+  @JsonProperty()
   private maxLifePoints: number;
 
   constructor(id: string, position: number) {

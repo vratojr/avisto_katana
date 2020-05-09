@@ -1,3 +1,4 @@
+import { JsonProperty, Serializable } from 'typescript-json-serializer';
 
 export enum CardType {
   // The names are mapped to folder in the UI. BEWARE!
@@ -5,7 +6,11 @@ export enum CardType {
   Permanent = "permanent",
   Action = "action"
 }
+
+@Serializable()
 export class Card {
+
+  @JsonProperty()
   cardName: string;
 
   constructor(cardName?: string) {
@@ -21,9 +26,12 @@ export class Card {
   };
 };
 
+@Serializable()
 export class CharacterCard extends Card {
 
+  @JsonProperty()
   lifePoints: number = 0;
+
   constructor(cardName?: string, lifePoints?: number) {
     super(cardName);
     this.lifePoints = lifePoints || 0;
@@ -41,9 +49,12 @@ export class CharacterCard extends Card {
   };
 }
 
+@Serializable()
 export class GameCard extends Card {
 
+  @JsonProperty()
   cardType: CardType
+
   constructor(cardName?: string, cardType?: CardType) {
     super(cardName);
     this.cardType = cardType || null;
@@ -61,10 +72,13 @@ export class GameCard extends Card {
   };
 }
 
+@Serializable()
 export class WeaponCard extends GameCard {
 
+  @JsonProperty()
   range: number
 
+  @JsonProperty()
   strength: number
 
   constructor(cardName?: string, cardType?: CardType, range?: number, strength?: number) {
