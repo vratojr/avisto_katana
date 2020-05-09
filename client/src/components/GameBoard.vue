@@ -1,7 +1,10 @@
 <template>
   <div class="d-flex section ml-5">
     <div class="card-holder normal">
-      <v-img v-if="game.gameDeck.cards.length>0" class="fullwidth" :src="require(`../assets/game/game_back.png`)" @click="drawGameCard" />
+      <div class="d-flex flex-column normal align-center">
+        <v-img v-if="game.gameDeck.cards.length>0" class="fullwidth" :src="require(`../assets/game/game_back.png`)" @click="drawGameCard" />
+        <span>X {{game.gameDeck.cards.length}}</span>
+      </div>
     </div>
     <Card v-if="lastDiscardedCard" :src="lastDiscardedCardImage" size="normal" @click="drawDiscarded" />
   </div>
