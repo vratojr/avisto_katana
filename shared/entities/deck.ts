@@ -34,19 +34,13 @@ export class Deck {
     if (this.cards.length == 0) {
       return;
     }
-
-    const cutDeckVariant = this.cards.length / 2 + Math.floor(Math.random() * 9) - 4;
-    const leftHalf = this.cards.splice(0, cutDeckVariant);
-    let leftCount = leftHalf.length;
-    let rightCount = this.cards.length - Math.floor(Math.random() * 4);
-    while (leftCount > 0) {
-      const takeAmount = Math.floor(Math.random() * 4);
-      this.cards.splice(rightCount, 0, ...leftHalf.splice(leftCount, takeAmount));
-      leftCount -= takeAmount;
-      rightCount = rightCount - Math.floor(Math.random() * 4) + takeAmount;
+    const shuffleCnt = getRandomInt(this.cards.length / 2, this.cards.length - 1);
+    for (let i = 0; i < shuffleCnt; i++) {
+      const rndNo = getRandomInt(0, this.cards.length - 1);
+      const card = this.cards[i];
+      this.cards[i] = this.cards[rndNo];
+      this.cards[rndNo] = card;
     }
-    this.cards.splice(rightCount, 0, ...leftHalf);
-
   }
 
   draw(): Card {
