@@ -17,7 +17,10 @@
       <v-row class="justify-center">
         <Card v-for="(card,i) in player.game" :key="i" :src="getCardUrl(card)" size="normal" @click="discardCardFromGame(i)" />
       </v-row>
-      <v-btn @click="endTurn()">End Turn</v-btn>
+      <v-row class="justify-space-between ml-1 mr-1">
+        <v-btn @click="endTurn()">End Turn</v-btn>
+        <v-btn @click="suffleHand()">Suffle Hand</v-btn>
+      </v-row>
     </v-col>
   </v-row>
 </template>

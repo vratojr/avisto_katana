@@ -79,6 +79,3 @@ http://localhost:4000/api/test/players/add5
 Then login with a new player and start the game! :)
 
 
-
-TODO: Button to shuffle player's hand.
-

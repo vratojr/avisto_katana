@@ -19,7 +19,7 @@ const handleAction = function (data: any) {
 
   switch (a.type) {
     case ActionType.AddPlayer:
-      initGameService.addPlayer(a.playerId);
+      initGameService.addPlayer(a.playerId)
       break;
     case ActionType.EndTurn:
       gameService.endTurn()
@@ -33,6 +33,9 @@ const handleAction = function (data: any) {
     case ActionType.PlayCard:
       gameService.playCard(a.playerId, (a as CardAction).cardPosition)
       break
+    case ActionType.SufflePlayerHand:
+      gameService.sufflePlayerHand(a.playerId)
+      break;
     case ActionType.DiscardCardFromHand:
       gameService.discardCardFromHand(a.playerId, (a as CardAction).cardPosition)
       break;

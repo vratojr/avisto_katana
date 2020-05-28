@@ -50,6 +50,8 @@ export const drawDiscarded = function (playerId: string): Player {
 };
 
 export const playCard = function (playerId: string, pos: number): Card {
+  // TODO : Launch card specific action and UI
+
   const player = players.find(p => p.id == playerId);
   const card = player.playCard(pos);
   if (card && card.cardType != CardType.Permanent) {
@@ -58,11 +60,15 @@ export const playCard = function (playerId: string, pos: number): Card {
   return card;
 };
 
+export const sufflePlayerHand = function (playerId: string): void {
+  const player = players.find(p => p.id == playerId);
+  player.shuffleHandCards();
+};
+
 export const discardCardFromHand = function (playerId: string, pos: number): Card {
   const player = players.find(p => p.id == playerId);
   const card = player.removeCardFromHand(pos)
-  game.discardedGameDeck.add(card);
-  
+  game.discardedGameDeck.add(card);  
   return card;
 };
 
@@ -70,7 +76,6 @@ export const discardCardFromGame = function (playerId: string, pos: number): Car
   const player = players.find(p => p.id == playerId);
   const card = player.removeCardFromGame(pos);
   game.discardedGameDeck.add(card);
-
   return card;
 };
 

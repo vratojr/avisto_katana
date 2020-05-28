@@ -72,6 +72,19 @@ export class Player {
     return card;
   }
 
+  shuffleHandCards(): void {
+    // fast shuffle algorithm :
+    // Math.random() - 0.5 is a random number that may be positive or negative
+    // => the sorting function reorders elements randomly. We suffle 5 times for better result
+    for (let suffleCount = 0; suffleCount < 5; suffleCount++) {
+      this.hand.sort(() => Math.random() - 0.5);
+    }
+
+    // TODO : Implement proper suffle algorithm (see Fisher–Yates Shuffle)
+    // https://bost.ocks.org/mike/shuffle/
+    // OR !! re use the shuffle of the deck
+  }
+
   removeCardFromHand(pos: number): GameCard {
     if (pos > this.hand.length - 1) {
       return null;

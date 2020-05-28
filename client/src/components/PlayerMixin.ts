@@ -32,14 +32,17 @@ export default Vue.extend({
     playCard(index: number): void {
       commService.playCard(index);
     },
-    discardCardFromHand(index: number) {
+    suffleHand(): void {
+      commService.sufflePlayerHand();
+    },
+    discardCardFromHand(index: number): void {
       commService.discardCardFromHand(index);
     },
-    discardCardFromGame(index: number) {
+    discardCardFromGame(index: number): void {
       commService.discardCardFromGame(index);
     },
 
-    endTurn() {
+    endTurn(): void {
       // if (this.isCurrentPlayer) {
       commService.endTurn()
       // }
