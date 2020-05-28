@@ -24,6 +24,10 @@ export const playCard = function (index: number) {
   Vue.prototype.$socket.sendObj(new CardAction(ActionType.PlayCard, store.getters.username, index))
 }
 
+export const discardCardFromHand = function (index: number) {
+  Vue.prototype.$socket.sendObj(new CardAction(ActionType.DiscardCardFromHand, store.getters.username, index))
+}
+
 export const discardCardFromGame = function (index: number) {
   Vue.prototype.$socket.sendObj(new CardAction(ActionType.DiscardCardFromGame, store.getters.username, index))
 }

@@ -58,7 +58,15 @@ export const playCard = function (playerId: string, pos: number): Card {
   return card;
 };
 
-export const discardCard = function (playerId: string, pos: number): Card {
+export const discardCardFromHand = function (playerId: string, pos: number): Card {
+  const player = players.find(p => p.id == playerId);
+  const card = player.removeCardFromHand(pos)
+  game.discardedGameDeck.add(card);
+  
+  return card;
+};
+
+export const discardCardFromGame = function (playerId: string, pos: number): Card {
   const player = players.find(p => p.id == playerId);
   const card = player.removeCardFromGame(pos);
   game.discardedGameDeck.add(card);

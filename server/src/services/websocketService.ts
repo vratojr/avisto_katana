@@ -33,8 +33,11 @@ const handleAction = function (data: any) {
     case ActionType.PlayCard:
       gameService.playCard(a.playerId, (a as CardAction).cardPosition)
       break
+    case ActionType.DiscardCardFromHand:
+      gameService.discardCardFromHand(a.playerId, (a as CardAction).cardPosition)
+      break;
     case ActionType.DiscardCardFromGame:
-      gameService.discardCard(a.playerId, (a as CardAction).cardPosition)
+      gameService.discardCardFromGame(a.playerId, (a as CardAction).cardPosition)
       break
     case ActionType.AddHonorPoints:
       gameService.addHonorPoints(a.playerId, (a as QuantityAction).quantity)

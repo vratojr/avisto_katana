@@ -3,6 +3,7 @@ export enum ActionType {
   DrawGameCard,
   DrawDiscardedCard,
   PlayCard,
+  DiscardCardFromHand,
   DiscardCardFromGame,
   AddHonorPoints,
   AddLifePoints,
@@ -56,6 +57,7 @@ export const parseAction = function (raw: string): Action {
     case ActionType.DrawDiscardedCard:
       return obj as PlayerAction;
     case ActionType.PlayCard:
+    case ActionType.DiscardCardFromHand:
     case ActionType.DiscardCardFromGame:
       return obj as CardAction;
     case ActionType.AddHonorPoints:

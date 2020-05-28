@@ -72,6 +72,14 @@ export class Player {
     return card;
   }
 
+  removeCardFromHand(pos: number): GameCard {
+    if (pos > this.hand.length - 1) {
+      return null;
+    }
+
+    return this.hand.splice(pos, 1)[0];
+  }
+
   removeCardFromGame(pos: number): GameCard {
     if (pos > this.game.length - 1) {
       return null;

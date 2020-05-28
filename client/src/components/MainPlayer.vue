@@ -10,7 +10,7 @@
       <div class="title text-center fullwidth">Hand</div>
       <v-row class="justify-center">
         <template v-for="(card,i) in player.hand">
-          <Card :key="i" :src="getCardUrl(card)" size="normal" @click="playCard(i)" />
+          <Card :key="i" :src="getCardUrl(card)" size="normal" @click="playCard(i)" @contextmenu.native.prevent="discardCardFromHand(i)" />
         </template>
       </v-row>
       <div class="title text-center fullwidth">Game</div>
@@ -33,7 +33,7 @@ export default Vue.extend({
   components: {
     Card,
     Points
-  }
+  },
 });
 </script>
 

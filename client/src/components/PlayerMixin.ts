@@ -32,6 +32,9 @@ export default Vue.extend({
     playCard(index: number): void {
       commService.playCard(index);
     },
+    discardCardFromHand(index: number) {
+      commService.discardCardFromHand(index);
+    },
     discardCardFromGame(index: number) {
       commService.discardCardFromGame(index);
     },
